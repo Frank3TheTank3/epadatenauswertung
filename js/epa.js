@@ -1,6 +1,14 @@
+/*====================================================
 ///////////////////////////////////////////////////////
+//                                                   //
 //  Auswertung von Serverzugriffen von EPA - epa.js  //
+//                                                   //
 ///////////////////////////////////////////////////////
+=====================================================*/
+
+// This script LOADS in data from epa-http.txt
+// The data is FORMATTED to fit the json structure in 'access_log_EPA_Jul95_parsed.json'
+// The data is SPLIT up into 4 sets, COUNTED through and DISPLAYED in 4 separate charts from 'AnyChart' (CDN Extension)
 
 //Settings
 let textDocumentToConvert = 'epa-http.txt'
