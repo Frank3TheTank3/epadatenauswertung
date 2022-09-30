@@ -1,6 +1,5 @@
-///////////////////////////////////////////////////////
-//  Auswertung von Serverzugriffen von EPA readme.md //
-///////////////////////////////////////////////////////
+
+**Auswertung von Serverzugriffen von EPA readme.md /**
 
 Open the 'ufirst_homework_epa_nicholls' folder in VS-Code and use the Live-Server plugin to host the epa.html.
 
