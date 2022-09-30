@@ -17,8 +17,6 @@ inputSmallSize.addEventListener("keypress", function(event) {
   }
 }); 
 
-
-
 function storeItemValue(nameOfItem, itemValue){
 localStorage.setItem(nameOfItem, itemValue);
 window.location.reload();

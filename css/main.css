@@ -64,23 +64,23 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-   .titleblock {
+.titleblock {
     padding: 10%;
-     padding-bottom: 5%;
-     text-shadow: 5px 2px 2px #555, 
-2px -4px 5px #000000, 
--2px 3px  8px rgb(26, 14, 14); 
-display: flex;
+    padding-bottom: 5%;
+    text-shadow: 5px 2px 2px #555, 
+    2px -4px 5px #000000, 
+    -2px 3px  8px rgb(26, 14, 14); 
+    display: flex;
 }
 
 .block {
     padding: 10%;
-     padding-bottom: 5%;
-     text-shadow: 5px 2px 2px #555, 
-2px -4px 5px #000000, 
--2px 3px  8px rgb(26, 14, 14); 
-display: flex;
-flex-direction: column;
+    padding-bottom: 5%;
+    text-shadow: 5px 2px 2px #555, 
+    2px -4px 5px #000000, 
+    -2px 3px  8px rgb(26, 14, 14); 
+    display: flex;
+    flex-direction: column;
 }
 
 #titlespace {
@@ -92,9 +92,8 @@ flex-direction: column;
     background-color: #222;
     color: antiquewhite;
     text-shadow: 10px 8px 6px #555, 
-4px -8px 5px #ff6677, 
--2px 3px  8px #999; 
-
+    4px -8px 5px #ff6677, 
+    -2px 3px  8px #999; 
 }
 
 input, input::placeholder{
@@ -107,6 +106,7 @@ input, input::placeholder{
 input:active, input:hover{
     border-color: #ff6677;
 }
+
 input:focus
 {
     border: 1px solid #ff6677;
@@ -114,6 +114,7 @@ input:focus
     outline-offset: 0px;
     outline: none;
 }
+
 button{
     color: #000;
     font-family: 'Rubik', sans-serif;
@@ -123,11 +124,9 @@ button{
     transition: 1s;
     max-width: 250px;
     align-self: center;
-    
 }
 
 button:hover{
-
     color: rgb(255, 255, 255);
     background-color: rgb(187, 58, 8);
     scale: 1.1;
@@ -135,11 +134,9 @@ button:hover{
 
 
 #container1, #container2, #container3, #container4{
-
-    
-     justify-self: center;
-     width: 100vw - 5wv;
-      height: 200px;
+    justify-self: center;
+    width: 100vw - 5wv;
+    height: 200px;
 }
 
 #graphs{
@@ -148,10 +145,20 @@ button:hover{
     align-items: center;
 }
 
-
-
-
-
+#myProgress {
+    width: 100%;
+    background-color: #ddd;
+    position: fixed;
+  }
+  
+#myBar {
+    width: 10%;
+    height: 30px;
+    background-color: #04AA6D;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+}
 
 
 /* ==========================================================================

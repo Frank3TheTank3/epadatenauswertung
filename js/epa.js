@@ -49,8 +49,12 @@ if(localStorage.getItem('graph4hidenulls'))
 {
   Graph4_Hide_NullUndefinedValues = localStorage.getItem('graph4hidenulls');
   Graph4_Hide_NullUndefinedValues = true;
-  document.getElementById('answerSizeHideEmpty').innerHTML = "Show empty sizes";
+  document.getElementById('answerSizeHideEmpty').innerHTML = "Hiding empty sizes";
   document.getElementById('answerSizeHideEmpty').style.backgroundColor = 'green'
+  document.getElementById('answerSizeShowAll').style.backgroundColor = 'white'
+  let button = document.getElementById('answerSizeHideEmpty');
+  button.disabled = true;
+  
 }
 
 if(localStorage.getItem('graph4hidesmalls'))
@@ -60,11 +64,13 @@ if(localStorage.getItem('graph4hidesmalls'))
     Graph4_SmallValue = 100;
     if(Graph4_SmallValue >= 100)
     {
-      document.getElementById('answerSizeHideSmall').innerHTML = "Show small sizes < 100";
+      document.getElementById('answerSizeHideSmall').innerHTML = "Hiding small sizes < 100";
       document.getElementById('answerSizeHideSmall').style.backgroundColor = 'green'
-    }
+    }document.getElementById('answerSizeShowAll').style.backgroundColor = 'white'
     document.getElementById('answerSizeInput').value = 100;
     localStorage.removeItem('graph4hidesmalls');
+    let button = document.getElementById('answerSizeHideSmall');
+    button.disabled = true;
 }
 
 if(localStorage.getItem('graph4smallvalue'))
@@ -74,8 +80,9 @@ if(localStorage.getItem('graph4smallvalue'))
   Graph4_Hide_SmallValues = true;
   if(Graph4_SmallValue >= 100)
   {
-    document.getElementById('answerSizeHideSmall').innerHTML = "Show small sizes < 100";
+    document.getElementById('answerSizeHideSmall').innerHTML = "Hiding small sizes < 100";
     document.getElementById('answerSizeHideSmall').style.backgroundColor = 'green'
+    document.getElementById('answerSizeShowAll').style.backgroundColor = 'white'
   }
 }
 
