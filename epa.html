@@ -1,0 +1,87 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Auswertung von Serverzugriffen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-base.min.js" type="text/javascript"></script>
+    </head>
+    <style>
+      #myProgress {
+        width: 100%;
+        background-color: #ddd;
+        position: fixed;
+      }
+      
+      #myBar {
+        width: 10%;
+        height: 30px;
+        background-color: #04AA6D;
+        text-align: center;
+        line-height: 30px;
+        color: white;
+      }
+      </style>
+    <body>
+      <div id="myProgress">
+        <div id="myBar">0%</div>
+      </div>
+      <div id="titlespace" class="titleblock">
+        <div id="titlebuttons">
+          <h1>Auswertung von Serverzugriffen von EPA</h1>
+          <button style="background-color:green ;" onclick="storeItemValue('showfullset', true)">Show all (47748)</button>
+          <input id="entriesInput" type="text" placeholder="Enter Number of entries">
+          <button id="entriesButton" onclick="storeInputValue('numberofentries')">Show entries</button>
+          <button id="resetSettings" style="background-color:red ; color: rgb(255, 255, 255);"onclick="resetSettings()">Reset</button>
+        </div>
+      </div>
+
+      
+
+      <div id="graphs">
+        <div class="block" >
+          <h2>HTTP Methoden</h2>
+          <span id="methodChart">
+            <div id="container1" >
+            </div>
+          </span>
+         
+        </div>
+        <div class="block">
+          <h2>Requests pro Minute</h2>
+          
+          <span id="requestsPerMinuteChart">
+            
+            <div id="container2" ></div>
+          </span>
+        </div>
+        <div class="block">
+          <h2>Antwortcodes</h2>
+          <span id="responseCodeChart">
+            <div id="container3"></div>
+          </span>
+        </div>
+        <div class="block">
+          <h2>Antwortgrösse</h2>
+          <button style="background-color:green ;" onclick="storeItemValue('showallgraph4', true)">Show all answers</button>
+          <button id="answerSizeHideEmpty" onclick="storeItemValue('graph4hidenulls', true)">Hide empty sizes</button>
+          <button id="answerSizeHideSmall" onclick="storeItemValue('graph4hidesmalls', true)">Hide small sizes < 100</button>
+        <input id="answerSizeInput" type="text" placeholder="Smallest answer size">
+        <button id="answerSizeButton" onclick="storeInputValue('graph4smallvalue')">Set smallest size</button>
+          <span id="documentSizeChart">
+            <div id="container4" ></div>
+          </span>
+        </div>
+      </div>
+       
+        <script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+        
+        <script src="./access_log_EPA_Jul95_parsed.json"></script>
+        <script src="js/epa.js"></script>
+        <script src="js/events.js"></script>
+    </body>
+</html>
