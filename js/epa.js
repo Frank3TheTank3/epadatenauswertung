@@ -70,7 +70,7 @@ if(localStorage.getItem('graph4hidenulls'))
 }
 
 if(localStorage.getItem('graph4hidesmalls'))
-{  localStorage.removeItem('graph4smallvalue');
+{
     Graph4_Hide_SmallValues = localStorage.getItem('graph4hidesmalls');
     Graph4_Hide_SmallValues = true;
     Graph4_SmallValue = 100;
@@ -109,12 +109,12 @@ if(localStorage.getItem('graph4smallvalue'))
     localStorage.removeItem('graph4hidesmalls');
   }else
     
-  {
-    document.getElementById('answerSizeHideSmall').innerHTML = "Hiding small sizes < 100";
-    document.getElementById('answerSizeHideSmall').style.backgroundColor = 'green'
-    let button = document.getElementById('answerSizeHideSmall');
+    {
+      document.getElementById('answerSizeHideSmall').innerHTML = "Hiding small sizes < 100";
+      document.getElementById('answerSizeHideSmall').style.backgroundColor = 'green'
+      let button = document.getElementById('answerSizeHideSmall');
     button.disabled = true;
-  }
+    }
   
 }
 
