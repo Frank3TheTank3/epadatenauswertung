@@ -1,9 +1,10 @@
+**README FILE**
 
-**Auswertung von Serverzugriffen von EPA readme.md**
+**Auswertung von Serverzugriffen von EPA**
 
-Open the 'ufirst_homework_epa_nicholls' folder in VS-Code and use the Live-Server plugin to host the epa.html.
+Open the 'AsignmentUfirstDatenauswetung' folder in VS-Code and use the Live-Server plugin to host the 'epa.html'.
 
-**How to use a custum epa-http-txt**
+**How to use a custum epa-http.txt**
 
 Add these header-names to the first line of the custom 'epa-http.txt' document.
 
