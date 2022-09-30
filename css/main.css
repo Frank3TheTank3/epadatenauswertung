@@ -139,6 +139,9 @@ button:hover{
     height: 200px;
 }
 
+#graphs button{
+    background-color: gray;
+}
 #graphs{
     display: flex;
     flex-direction: column;

@@ -50,7 +50,10 @@ if(localStorage.getItem('showallgraph4'))
   Graph4_Hide_SmallValues = false;
   Graph4_SmallValue=1;
   document.getElementById('answerSizeInput').value = "";
-  
+  let button = document.getElementById('answerSizeShowAll');
+  button.disabled = true;
+  document.getElementById('answerSizeShowAll').style.backgroundColor = 'green'
+  document.getElementById('answerSizeShowAll').innerHTML = "Showing all answers";
 }
 
 if(localStorage.getItem('graph4hidenulls'))
@@ -59,39 +62,60 @@ if(localStorage.getItem('graph4hidenulls'))
   Graph4_Hide_NullUndefinedValues = true;
   document.getElementById('answerSizeHideEmpty').innerHTML = "Hiding empty sizes";
   document.getElementById('answerSizeHideEmpty').style.backgroundColor = 'green'
-  document.getElementById('answerSizeShowAll').style.backgroundColor = 'white'
+  document.getElementById('answerSizeShowAll').style.backgroundColor = 'grey'
+  document.getElementById('answerSizeShowAll').innerHTML = "Show all answers";
   let button = document.getElementById('answerSizeHideEmpty');
   button.disabled = true;
   
 }
 
 if(localStorage.getItem('graph4hidesmalls'))
-{
+{  localStorage.removeItem('graph4smallvalue');
     Graph4_Hide_SmallValues = localStorage.getItem('graph4hidesmalls');
     Graph4_Hide_SmallValues = true;
     Graph4_SmallValue = 100;
-    if(Graph4_SmallValue >= 100)
+    document.getElementById('answerSizeInput').value = 100;
+
+    if(Graph4_SmallValue >= 101)
+    {
+      document.getElementById('answerSizeHideSmall').innerHTML = "Hide small sizes < 100";
+      document.getElementById('answerSizeHideSmall').style.backgroundColor = 'grey'
+    }
+    else
+    
     {
       document.getElementById('answerSizeHideSmall').innerHTML = "Hiding small sizes < 100";
       document.getElementById('answerSizeHideSmall').style.backgroundColor = 'green'
-    }document.getElementById('answerSizeShowAll').style.backgroundColor = 'white'
-    document.getElementById('answerSizeInput').value = 100;
+    }
+    document.getElementById('answerSizeShowAll').style.backgroundColor = 'grey'
+    
     localStorage.removeItem('graph4hidesmalls');
     let button = document.getElementById('answerSizeHideSmall');
     button.disabled = true;
+    document.getElementById('answerSizeShowAll').innerHTML = "Show all answers";
 }
 
 if(localStorage.getItem('graph4smallvalue'))
 {
-  localStorage.removeItem('graph4hidesmalls');
+  
   Graph4_SmallValue = localStorage.getItem('graph4smallvalue');
   Graph4_Hide_SmallValues = true;
-  if(Graph4_SmallValue >= 100)
+  if(Graph4_SmallValue >= 101)
+  {
+    document.getElementById('answerSizeShowAll').innerHTML = "Show all answers";
+    document.getElementById('answerSizeHideSmall').innerHTML = "Hide small sizes < 100";
+    document.getElementById('answerSizeHideSmall').style.backgroundColor = 'grey'
+    document.getElementById('answerSizeShowAll').style.backgroundColor = 'grey'
+    localStorage.removeItem('graph4hidesmalls');
+  }else
+    
   {
     document.getElementById('answerSizeHideSmall').innerHTML = "Hiding small sizes < 100";
     document.getElementById('answerSizeHideSmall').style.backgroundColor = 'green'
-    document.getElementById('answerSizeShowAll').style.backgroundColor = 'white'
+    let button = document.getElementById('answerSizeHideSmall');
+    button.disabled = true;
   }
+  
 }
 
 ///////////////////////////////////////////////////////
@@ -99,7 +123,7 @@ if(localStorage.getItem('graph4smallvalue'))
 ///////////////////////////////////////////////////////
 
 jQuery(document).ready(function() {
-
+  move();
   
   if(displayFullDataSet)
   {numberOfEntriesToDisplay = 47748}
@@ -111,7 +135,7 @@ jQuery(document).ready(function() {
 
   //Get epa-http.txt with jQuery
   $.get('/' + textDocumentToConvert,{},function(content){
-
+    
     //Remove double quotes from text content
     let contentNodoubles = content.replace(/["]+/g, '')
 
@@ -190,6 +214,7 @@ jQuery(document).ready(function() {
 
     //Count the same entries in the epaDataRecords dataset
     countDataSet(epaDataRecords)
+    move();
     
   });
 
@@ -243,7 +268,7 @@ jQuery(document).ready(function() {
     //Loop through the data and log the container
     for (let index = 1; index < 5; index++) {
       //Get container name in DOM by concatiation of 'container' & dataset itteration size (index)
-      move();
+      
       let containerName = "container" + index
       //Display Loading messages of containers
       switch (containerName) {
@@ -399,7 +424,7 @@ jQuery(document).ready(function() {
       //Reset loop array placeholder and counts object 'data placeholder'
       dataSetToCount = [];
       counts = {};
-     
+      move();
     }
   }
   
@@ -439,7 +464,7 @@ function move() {
     i = 1;
     var elem = document.getElementById("myBar");
     var width = 0;
-    var id = setInterval(frame, 10);
+    var id = setInterval(frame, 1);
     function frame() {
       if (width >= 100) {
         clearInterval(id);
