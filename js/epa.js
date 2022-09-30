@@ -11,14 +11,20 @@ let Graph4_Hide_SmallValues = false;
 let Graph4_SmallValue = 100;
 let displayFullGraph4 = true;
 
-//Local storage
+///////////////////////////////////////////////////////
+//            Check Local storage settings           //
+///////////////////////////////////////////////////////
 
 if(localStorage.getItem('showfullset'))
 { 
+  localStorage.removeItem('numberofentries');
+  localStorage.removeItem('showfullset');
   displayFullDataSet = localStorage.getItem('showfullset');
   document.getElementById('entriesInput').value = "";
   Graph4_Hide_SmallValues = true;
+  numberOfEntriesToDisplay = 47748
 }
+
 if(localStorage.getItem('numberofentries'))
 {
   numberOfEntriesToDisplay = localStorage.getItem('numberofentries');
@@ -33,14 +39,11 @@ if(localStorage.getItem('showallgraph4'))
   localStorage.removeItem('graph4smallvalue');
   localStorage.removeItem('graph4hidenulls');
   localStorage.removeItem('graph4hidesmalls');
-  
   Graph4_Hide_SmallValues = false;
   Graph4_SmallValue=1;
   document.getElementById('answerSizeInput').value = "";
   
 }
-
-
 
 if(localStorage.getItem('graph4hidenulls'))
 {
@@ -50,10 +53,8 @@ if(localStorage.getItem('graph4hidenulls'))
   document.getElementById('answerSizeHideEmpty').style.backgroundColor = 'green'
 }
 
-
 if(localStorage.getItem('graph4hidesmalls'))
 {
-  //localStorage.removeItem('graph4smallvalue');
     Graph4_Hide_SmallValues = localStorage.getItem('graph4hidesmalls');
     Graph4_Hide_SmallValues = true;
     Graph4_SmallValue = 100;
@@ -62,23 +63,26 @@ if(localStorage.getItem('graph4hidesmalls'))
       document.getElementById('answerSizeHideSmall').innerHTML = "Show small sizes < 100";
       document.getElementById('answerSizeHideSmall').style.backgroundColor = 'green'
     }
-      
     document.getElementById('answerSizeInput').value = 100;
     localStorage.removeItem('graph4hidesmalls');
-  //localStorage.removeItem('graph4hidesmalls');
 }
+
 if(localStorage.getItem('graph4smallvalue'))
 {
   localStorage.removeItem('graph4hidesmalls');
-    Graph4_SmallValue = localStorage.getItem('graph4smallvalue');
-    Graph4_Hide_SmallValues = true;
-    if(Graph4_SmallValue >= 100)
-    {
-      document.getElementById('answerSizeHideSmall').innerHTML = "Show small sizes < 100";
-      document.getElementById('answerSizeHideSmall').style.backgroundColor = 'green'
-    }
- 
+  Graph4_SmallValue = localStorage.getItem('graph4smallvalue');
+  Graph4_Hide_SmallValues = true;
+  if(Graph4_SmallValue >= 100)
+  {
+    document.getElementById('answerSizeHideSmall').innerHTML = "Show small sizes < 100";
+    document.getElementById('answerSizeHideSmall').style.backgroundColor = 'green'
+  }
 }
+
+///////////////////////////////////////////////////////
+//       Jquery on document ready function           //
+///////////////////////////////////////////////////////
+
 jQuery(document).ready(function() {
 
   
@@ -174,13 +178,12 @@ jQuery(document).ready(function() {
     
   });
 
+  ///////////////////////////////////////////////////////
+  //         Count & display epa data records         //
+  ///////////////////////////////////////////////////////
+
   function countDataSet(epaDataRecords)
   {
-    ///////////////////////////////////////////////////////
-    //         Count & display epa data records         //
-    ///////////////////////////////////////////////////////
-
-
     //Create object to hold key number and data value after counting double entries
     let counts = {};
     let precounts = {};
@@ -361,7 +364,7 @@ jQuery(document).ready(function() {
         chart = anychart.fromJson(pieChart);
       }
 
-      //Create AnyChart chart with json data
+      //Create AnyChart chart with json data and set chart boarder and background
       chart.legend(true);
       chart.background().stroke({
         keys: [".1 red", ".5 yellow", ".9 blue"],
@@ -385,9 +388,7 @@ jQuery(document).ready(function() {
     }
   }
   
-}
-
-);
+});
 
 ///////////////////////////////////////////////////////
 //   Helper functions for sorting & renanimg objects //
@@ -414,6 +415,9 @@ function preferredOrder(obj, order) {
 }
 
 
+///////////////////////////////////////////////////////
+//                   Progress Bar                    //
+///////////////////////////////////////////////////////
 var i = 0;
 function move() {
   if (i == 0) {
