@@ -102,8 +102,9 @@ function checkLocalStorage(){
 
   //Hide "-" and "0" in data sizes in graph 4
   if(localStorage.getItem('graph4hidenulls')) {
-    graph4HideNullUndefinedValues = true;
+    //graph4HideNullUndefinedValues = true;
     graph4HideNullUndefinedValues = localStorage.getItem('graph4hidenulls');
+    console.log(graph4HideNullUndefinedValues)
     document.getElementById('answerSizeHideEmpty').innerHTML = "Hiding empty sizes";
     document.getElementById('answerSizeHideEmpty').style.backgroundColor = 'green'
     document.getElementById('answerSizeShowAll').style.backgroundColor = 'grey'
@@ -310,18 +311,11 @@ function countDataSet(epaDataRecords)
     }
     //Add the dataset to count
    
-    if(index === 2)
-    {
-      dataSetToCount.push(pushElement);
-      //console.log("Pushing: " + pushComparisioElement)
-    }
-    else
-    { dataSetToCount.push(pushElement);}
+    dataSetToCount.push(pushElement);
     });
 
     //Display relevent data on counting loop
     console.log(counts);
-
     //Set Dataset Doubles
     countDataSetDoubles(index);
 
@@ -346,11 +340,12 @@ function countDataSetDoubles(index) {
     }
 
     //Set chart nr. 4 data structure with checks for Hide_SmallValues & Hide_NullUndefinedValues
-    else if(index === 4)
+    if(index === 4)
     {
+      //console.log(graph4HideNullUndefinedValues)
       switch (graph4HideNullUndefinedValues) {
         case true:  
-          if(element != "0" && element != "-" &&  element != undefined)
+        if(element != "0" && element != "-" &&  element != undefined)
           {
             editcounts[element] = (editcounts[element] || 0) + 1;
             if(graph4HideSmallValues && ((editcounts[element] || 0) + 1) >= graph4SmallValue)
@@ -366,6 +361,7 @@ function countDataSetDoubles(index) {
         case false: 
           if(element != undefined)
           {
+            
             editcounts[element] = (editcounts[element] || 0) + 1;
             if(graph4HideSmallValues && ((editcounts[element] || 0) + 1) >= graph4SmallValue)
             {
@@ -377,7 +373,19 @@ function countDataSetDoubles(index) {
             }
           }
           break;
-        default: return;
+        default: 
+          if(element != "0" && element != "-" &&  element != undefined)
+          {
+            editcounts[element] = (editcounts[element] || 0) + 1;
+            if(graph4HideSmallValues && ((editcounts[element] || 0) + 1) >= graph4SmallValue)
+            {
+              counts[element] = (editcounts[element] || 0) + 1;
+            }
+            if(!graph4HideSmallValues && ((editcounts[element] || 0) + 1) >= 0)
+            {
+              counts[element] = (counts[element] || 0) + 1;
+            }
+          }
           break;
       } 
     }
