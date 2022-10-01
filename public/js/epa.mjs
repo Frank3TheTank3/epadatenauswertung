@@ -25,6 +25,7 @@ let graph4SmallValue = 100;
 
  //Variable element holding data set query paths during the counting loop
  let pushElement;
+ let pushComparisioElement;
 
  // AnyChart json-object for chart 1,3,4
  let pieChart = {
