@@ -124,11 +124,11 @@ if(localStorage.getItem('graph4smallvalue'))
 
 jQuery(document).ready(function() {
   let epaDataRecords;
-fetch('./access_log_EPA_Jul95_parsed.json')
-  .then((res) => res.json())
-  .then((data) => {
-    console.log(data); epaDataRecords  = data;
-  });
+  fetch('./access_log_EPA_Jul95_parsed.json')
+    .then((res) => res.json())
+    .then((data) => {
+      epaDataRecords  = data;
+    });
   move();
   
   if(displayFullDataSet)
@@ -140,7 +140,7 @@ fetch('./access_log_EPA_Jul95_parsed.json')
 
   //Get epa-http.txt with jQuery
   $.get('/' + textDocumentToConvert,{},function(content){
-    console.log(content)
+    
     //Remove double quotes from text content
     let contentNodoubles = content.replace(/["]+/g, '')
 
