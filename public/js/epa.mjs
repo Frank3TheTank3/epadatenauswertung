@@ -18,6 +18,7 @@ let Graph4_Hide_NullUndefinedValues = false;
 let Graph4_Hide_SmallValues = false;
 let Graph4_SmallValue = 100;
 let displayFullGraph4 = true;
+let epaDataRecords;
 
 ///////////////////////////////////////////////////////
 //            Check Local storage settings           //
@@ -117,26 +118,20 @@ if(localStorage.getItem('graph4smallvalue'))
     }
   
 }
-let epaDataRecords;
-///////////////////////////////////////////////////////
-//       Jquery on document ready function           //
-///////////////////////////////////////////////////////
-
-/*
-import jsonData from './access_log_EPA_Jul95_parsed.json' assert { type: "application/json" };
-//import jsonData from './access_log_EPA_Jul95_parsed.json'
-  //await import('./access_log_EPA_Jul95_parsed.json', { assert: { type: 'json' } });
-let epaDataRecords = JSON.parse(jsonData);
-*/
-jQuery(document).ready(function() {
-  move();
-  
 fetch('./access_log_EPA_Jul95_parsed.json')
   .then((res) => res.json())
   .then((data) => {
     //console.log(data); 
     epaDataRecords  = data;
   });
+///////////////////////////////////////////////////////
+//       Jquery on document ready function           //
+///////////////////////////////////////////////////////
+
+jQuery(document).ready(function() {
+  move();
+  
+
   if(displayFullDataSet)
   {numberOfEntriesToDisplay = 47748}
   //epaDataRecords = JSON.parse(window.epadata);
