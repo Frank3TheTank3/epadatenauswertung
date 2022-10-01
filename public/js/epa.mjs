@@ -12,11 +12,11 @@
 
 //Settings
 let textDocumentToConvert = 'epa-http.txt'
-let numberOfEntriesToDisplay = 5000;
+let NumberOfEntriesToDisplay = 5000;
 let displayFullDataSet = true;
-let Graph4HideNullUndefinedValues = false;
-let Graph4HideSmallValues = false;
-let Graph4SmallValue = 100;
+let graph4HideNullUndefinedValues = false;
+let graph4HideSmallValues = false;
+let graph4SmallValue = 100;
 let displayFullGraph4 = true;
 
  //Create object to hold key number and data value after counting double entries
@@ -72,13 +72,13 @@ function checkLocalStorage(){
     localStorage.removeItem('showfullset');
     displayFullDataSet = localStorage.getItem('showfullset');
     document.getElementById('entriesInput').value = "";
-    Graph4HideSmallValues = true;
-    numberOfEntriesToDisplay = 47748
+    graph4HideSmallValues = true;
+    NumberOfEntriesToDisplay = 47748
   }
 
   if(localStorage.getItem('numberofentries'))
   {
-    numberOfEntriesToDisplay = localStorage.getItem('numberofentries');
+    NumberOfEntriesToDisplay = localStorage.getItem('numberofentries');
     displayFullDataSet = false;
     localStorage.removeItem('showfullset');
   }
@@ -90,8 +90,8 @@ function checkLocalStorage(){
     localStorage.removeItem('graph4smallvalue');
     localStorage.removeItem('graph4hidenulls');
     localStorage.removeItem('graph4hidesmalls');
-    Graph4HideSmallValues = false;
-    Graph4SmallValue=1;
+    graph4HideSmallValues = false;
+    graph4SmallValue=1;
     document.getElementById('answerSizeInput').value = "";
     let button = document.getElementById('answerSizeShowAll');
     button.disabled = true;
@@ -101,8 +101,8 @@ function checkLocalStorage(){
 
   if(localStorage.getItem('graph4hidenulls'))
   {
-    Graph4HideNullUndefinedValues = localStorage.getItem('graph4hidenulls');
-    Graph4HideNullUndefinedValues = true;
+    graph4HideNullUndefinedValues = localStorage.getItem('graph4hidenulls');
+    graph4HideNullUndefinedValues = true;
     document.getElementById('answerSizeHideEmpty').innerHTML = "Hiding empty sizes";
     document.getElementById('answerSizeHideEmpty').style.backgroundColor = 'green'
     document.getElementById('answerSizeShowAll').style.backgroundColor = 'grey'
@@ -114,12 +114,12 @@ function checkLocalStorage(){
 
   if(localStorage.getItem('graph4hidesmalls'))
   {
-      Graph4HideSmallValues = localStorage.getItem('graph4hidesmalls');
-      Graph4HideSmallValues = true;
-      Graph4SmallValue = 100;
+      graph4HideSmallValues = localStorage.getItem('graph4hidesmalls');
+      graph4HideSmallValues = true;
+      graph4SmallValue = 100;
       document.getElementById('answerSizeInput').value = 100;
 
-      if(Graph4SmallValue >= 101)
+      if(graph4SmallValue >= 101)
       {
         document.getElementById('answerSizeHideSmall').innerHTML = "Hide small sizes < 100";
         document.getElementById('answerSizeHideSmall').style.backgroundColor = 'grey'
@@ -141,9 +141,9 @@ function checkLocalStorage(){
   if(localStorage.getItem('graph4smallvalue'))
   {
     
-    Graph4SmallValue = localStorage.getItem('graph4smallvalue');
-    Graph4HideSmallValues = true;
-    if(Graph4SmallValue >= 101)
+    graph4SmallValue = localStorage.getItem('graph4smallvalue');
+    graph4HideSmallValues = true;
+    if(graph4SmallValue >= 101)
     {
       document.getElementById('answerSizeShowAll').innerHTML = "Show all answers";
       document.getElementById('answerSizeHideSmall').innerHTML = "Hide small sizes < 100";
@@ -177,7 +177,7 @@ jQuery(document).ready(function() {
       epaDataRecords  = data;
       
       if(displayFullDataSet)
-      {numberOfEntriesToDisplay = 47748};
+      {NumberOfEntriesToDisplay = 47748};
       move();
     
 
@@ -240,7 +240,7 @@ jQuery(document).ready(function() {
         result.splice(0,1);
 
         //Restructure the JSON data for all 47748 entries
-        for (let index = 0; index < numberOfEntriesToDisplay; index++) {
+        for (let index = 0; index < NumberOfEntriesToDisplay; index++) {
 
           //Set data order by 'preferred Order' function
           let data = preferredOrder(result[index], [
@@ -353,16 +353,16 @@ function countDataSetDoubles(index) {
     //Set chart nr. 4 data structure with checks for Hide_SmallValues & Hide_NullUndefinedValues
     else if(index === 4)
     {
-      switch (Graph4HideNullUndefinedValues) {
+      switch (graph4HideNullUndefinedValues) {
         case true:  
           if(element != "0" && element != "-" &&  element != undefined)
           {
             editcounts[element] = (editcounts[element] || 0) + 1;
-            if(Graph4HideSmallValues && ((editcounts[element] || 0) + 1) >= Graph4SmallValue)
+            if(graph4HideSmallValues && ((editcounts[element] || 0) + 1) >= graph4SmallValue)
             {
               counts[element] = (editcounts[element] || 0) + 1;
             }
-            if(!Graph4HideSmallValues && ((editcounts[element] || 0) + 1) >= 0)
+            if(!graph4HideSmallValues && ((editcounts[element] || 0) + 1) >= 0)
             {
               counts[element] = (counts[element] || 0) + 1;
             }
@@ -372,11 +372,11 @@ function countDataSetDoubles(index) {
           if(element != undefined)
           {
             editcounts[element] = (editcounts[element] || 0) + 1;
-            if(Graph4HideSmallValues && ((editcounts[element] || 0) + 1) >= Graph4SmallValue)
+            if(graph4HideSmallValues && ((editcounts[element] || 0) + 1) >= graph4SmallValue)
             {
               counts[element] = (editcounts[element] || 0) + 1;
             }
-            if(!Graph4HideSmallValues && ((editcounts[element] || 0) + 1) >= 0)
+            if(!graph4HideSmallValues && ((editcounts[element] || 0) + 1) >= 0)
             {
               counts[element] = (counts[element] || 0) + 1;
             }
