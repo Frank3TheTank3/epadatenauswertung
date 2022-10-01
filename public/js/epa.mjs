@@ -18,7 +18,6 @@ let Graph4_Hide_NullUndefinedValues = false;
 let Graph4_Hide_SmallValues = false;
 let Graph4_SmallValue = 100;
 let displayFullGraph4 = true;
-let epaDataRecords;
 
 ///////////////////////////////////////////////////////
 //            Check Local storage settings           //
@@ -118,20 +117,22 @@ if(localStorage.getItem('graph4smallvalue'))
     }
   
 }
-fetch('./access_log_EPA_Jul95_parsed.json')
-  .then((res) => res.json())
-  .then((data) => {
-    //console.log(data); 
-    epaDataRecords  = data;
-  });
+
 ///////////////////////////////////////////////////////
 //       Jquery on document ready function           //
 ///////////////////////////////////////////////////////
 
 jQuery(document).ready(function() {
-  move();
-  
+  let epaDataRecords;
+  fetch('./access_log_EPA_Jul95_parsed.json')
+    .then((res) => res.json())
+    .then((data) => {
+      //console.log(data); 
+      epaDataRecords  = data;
+   
 
+  move();
+ 
   if(displayFullDataSet)
   {numberOfEntriesToDisplay = 47748}
   //epaDataRecords = JSON.parse(window.epadata);
@@ -433,7 +434,7 @@ jQuery(document).ready(function() {
       move();
     }
   }
-  
+});
 });
 
 ///////////////////////////////////////////////////////
