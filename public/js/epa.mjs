@@ -117,17 +117,11 @@ if(localStorage.getItem('graph4smallvalue'))
     }
   
 }
-
+let epaDataRecords;
 ///////////////////////////////////////////////////////
 //       Jquery on document ready function           //
 ///////////////////////////////////////////////////////
-let epaDataRecords;
-fetch('./access_log_EPA_Jul95_parsed.json')
-  .then((res) => res.json())
-  .then((data) => {
-    //console.log(data); 
-    epaDataRecords  = data;
-  });
+
 /*
 import jsonData from './access_log_EPA_Jul95_parsed.json' assert { type: "application/json" };
 //import jsonData from './access_log_EPA_Jul95_parsed.json'
@@ -137,6 +131,12 @@ let epaDataRecords = JSON.parse(jsonData);
 jQuery(document).ready(function() {
   move();
   
+fetch('./access_log_EPA_Jul95_parsed.json')
+  .then((res) => res.json())
+  .then((data) => {
+    //console.log(data); 
+    epaDataRecords  = data;
+  });
   if(displayFullDataSet)
   {numberOfEntriesToDisplay = 47748}
   //epaDataRecords = JSON.parse(window.epadata);
@@ -427,7 +427,7 @@ jQuery(document).ready(function() {
       background.cornerType("round");
       background.corners(10);
       chart.background().fill({
-        src: "https://blackdeerfestival.com/wp-content/uploads/2018/02/blackdeer-semi-transparent-block-1000x618.png",
+        src: "https://  .com/wp-content/uploads/2018/02/blackdeer-semi-transparent-block-1000x618.png",
        
       });
       chart.draw();
