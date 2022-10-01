@@ -13,6 +13,8 @@
 //Settings
 let textDocumentToConvert = 'epa-http.txt'
 let numberOfEntriesToDisplay = 5000;
+let startEntriesToDisplay = 0;
+let endEntriesToDisplay = 0;
 let displayFullDataSet = true;
 let graph4HideNullUndefinedValues = false;
 let graph4HideSmallValues = false;
@@ -66,15 +68,30 @@ let graph4SmallValue = 100;
 
 function checkLocalStorage(){
 
+///////////////////////////////////////////////////////
+//             Enteries and full data set            //
+///////////////////////////////////////////////////////
+
   //Showing full set
   if(localStorage.getItem('showfullset')) { 
+    numberOfEntriesToDisplay = 47748
     graph4HideSmallValues = true;
     displayFullDataSet = localStorage.getItem('showfullset');
-    numberOfEntriesToDisplay = 47748
     localStorage.removeItem('numberofentries');
     localStorage.removeItem('showfullset');
-    document.getElementById('entriesInput').value = "";
-    
+    getByID('entriesInput').value = "";
+  }
+
+  //Show with an start entry
+  if(localStorage.getItem('startEntries')) { 
+    startEntriesToDisplay = localStorage.getItem('startEntries');
+    console.log("Start entries" + startEntriesToDisplay)
+  }
+
+  //Show with an end entry
+  if(localStorage.getItem('endEntries')) { 
+    endEntriesToDisplay= localStorage.getItem('endEntries');
+    console.log("End entries" + endEntriesToDisplay)
   }
 
   //Show a certain number of data
@@ -82,7 +99,13 @@ function checkLocalStorage(){
     displayFullDataSet = false;
     numberOfEntriesToDisplay = localStorage.getItem('numberofentries');
     localStorage.removeItem('showfullset');
+    localStorage.removeItem('startEntries');
+    localStorage.removeItem('endEntries');
   }
+
+///////////////////////////////////////////////////////
+//               Graph 4 settings check              //
+///////////////////////////////////////////////////////
 
   //Show all data sizes in graph 4
   if(localStorage.getItem('showallgraph4')) {
@@ -93,11 +116,11 @@ function checkLocalStorage(){
     localStorage.removeItem('graph4smallvalue');
     localStorage.removeItem('graph4hidenulls');
     localStorage.removeItem('graph4hidesmalls');
-    let button = document.getElementById('answerSizeShowAll');
+    let button = getByID('answerSizeShowAll');
     button.disabled = true;
-    document.getElementById('answerSizeShowAll').style.backgroundColor = 'green'
-    document.getElementById('answerSizeShowAll').innerHTML = "Showing all answers";
-    document.getElementById('answerSizeInput').value = "";
+    getByID('answerSizeShowAll').style.backgroundColor = 'green'
+    getByID('answerSizeShowAll').innerHTML = "Showing all answers";
+    getByID('answerSizeInput').value = "";
   }
 
   //Hide "-" and "0" in data sizes in graph 4
@@ -105,10 +128,10 @@ function checkLocalStorage(){
     //graph4HideNullUndefinedValues = true;
     graph4HideNullUndefinedValues = localStorage.getItem('graph4hidenulls');
     console.log(graph4HideNullUndefinedValues)
-    document.getElementById('answerSizeHideEmpty').innerHTML = "Hiding empty sizes";
-    document.getElementById('answerSizeHideEmpty').style.backgroundColor = 'green'
-    document.getElementById('answerSizeShowAll').style.backgroundColor = 'grey'
-    document.getElementById('answerSizeShowAll').innerHTML = "Show all answers";
+    getByID('answerSizeHideEmpty').innerHTML = "Hiding empty sizes";
+    getByID('answerSizeHideEmpty').style.backgroundColor = 'green'
+    getByID('answerSizeShowAll').style.backgroundColor = 'grey'
+    getByID('answerSizeShowAll').innerHTML = "Show all answers";
     let button = document.getElementById('answerSizeHideEmpty');
     button.disabled = true;
     
@@ -119,43 +142,51 @@ function checkLocalStorage(){
     graph4HideSmallValues = true;
     graph4HideSmallValues = localStorage.getItem('graph4hidesmalls');
     graph4SmallValue = 100;
-    document.getElementById('answerSizeInput').value = 100;
+    getByID('answerSizeInput').value = 100;
 
     if(graph4SmallValue >= 101) {
-      document.getElementById('answerSizeHideSmall').innerHTML = "Hide small sizes < 100";
-      document.getElementById('answerSizeHideSmall').style.backgroundColor = 'grey'
+      getByID('answerSizeHideSmall').innerHTML = "Hide the small sizes < 100";
+      getByID('answerSizeHideSmall').style.backgroundColor = 'grey'
     }
     else{
-        document.getElementById('answerSizeHideSmall').innerHTML = "Hiding small sizes < 100";
-        document.getElementById('answerSizeHideSmall').style.backgroundColor = 'green'
+      getByID('answerSizeHideSmall').innerHTML = "Hiding small sizes < 100";
+      getByID('answerSizeHideSmall').style.backgroundColor = 'green'
     }
 
-    document.getElementById('answerSizeShowAll').style.backgroundColor = 'grey'
+    getByID('answerSizeShowAll').style.backgroundColor = 'grey'
     localStorage.removeItem('graph4hidesmalls');
     let button = document.getElementById('answerSizeHideSmall');
     button.disabled = true;
-    document.getElementById('answerSizeShowAll').innerHTML = "Show all answers";
+    getByID('answerSizeShowAll').innerHTML = "Show all answers";
   }
 
   //Set a smallest value for small sizes to hide in graph 4
   if(localStorage.getItem('graph4smallvalue')) {
     graph4HideSmallValues = true;
     graph4SmallValue = localStorage.getItem('graph4smallvalue');
+    console.log(graph4SmallValue)
     if(graph4SmallValue >= 101)
     {
       localStorage.removeItem('graph4hidesmalls');
-      document.getElementById('answerSizeShowAll').innerHTML = "Show all answers";
-      document.getElementById('answerSizeHideSmall').innerHTML = "Hide small sizes < 100";
-      document.getElementById('answerSizeHideSmall').style.backgroundColor = 'grey'
-      document.getElementById('answerSizeShowAll').style.backgroundColor = 'grey' 
+      getByID('answerSizeShowAll').innerHTML = "Show all answers";
+      getByID('answerSizeHideSmall').innerHTML = "Hide small sizes < 100";
+      getByID('answerSizeHideSmall').style.backgroundColor = 'grey'
+      getByID('answerSizeShowAll').style.backgroundColor = 'grey' 
     }
     else {
-      document.getElementById('answerSizeHideSmall').innerHTML = "Hiding small sizes < 100";
-      document.getElementById('answerSizeHideSmall').style.backgroundColor = 'green'
-      let button = document.getElementById('answerSizeHideSmall');
+      getByID('answerSizeHideSmall').innerHTML = "Hiding small sizes < 100";
+      getByID('answerSizeHideSmall').style.backgroundColor = 'green'
+      let button = getByID('answerSizeHideSmall');
       button.disabled = true;
     }
+    localStorage.removeItem('graph4smallvalue');
   }
+
+}
+
+function getByID(elementName){
+  let refElement = document.getElementById(elementName);
+  return refElement;
 }
 
 checkLocalStorage();
@@ -234,9 +265,12 @@ jQuery(document).ready(function() {
 
         //Splice out the header from the result
         result.splice(0,1);
-
+        if(endEntriesToDisplay)
+        {numberOfEntriesToDisplay = endEntriesToDisplay
+          console.log("Number of entries" + startEntriesToDisplay)
+        }
         //Restructure the JSON data for all 47748 entries
-        for (let index = 0; index < numberOfEntriesToDisplay; index++) {
+        for (let index = parseInt(startEntriesToDisplay); index < numberOfEntriesToDisplay; index++) {
 
           //Set data order by 'preferred Order' function
           let data = preferredOrder(result[index], [
@@ -506,3 +540,4 @@ function hideProgress() {
     var elem = document.getElementById("myBar");
     elem.style.display = 'none';
 }
+
