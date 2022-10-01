@@ -441,7 +441,7 @@ function createDataCharts(index)
       background.cornerType("round");
       background.corners(10);
       chart.background().fill({
-        src: "https://  .com/wp-content/uploads/2018/02/blackdeer-semi-transparent-block-1000x618.png",
+        src: "https://www.blackdeerfestival.com/wp-content/uploads/2018/02/blackdeer-semi-transparent-block-1000x618.png",
        
       });
       chart.draw();
