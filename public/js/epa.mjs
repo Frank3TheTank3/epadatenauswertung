@@ -12,12 +12,11 @@
 
 //Settings
 let textDocumentToConvert = 'epa-http.txt'
-let NumberOfEntriesToDisplay = 5000;
+let numberOfEntriesToDisplay = 5000;
 let displayFullDataSet = true;
 let graph4HideNullUndefinedValues = false;
 let graph4HideSmallValues = false;
 let graph4SmallValue = 100;
-let displayFullGraph4 = true;
 
  //Create object to hold key number and data value after counting double entries
  let counts = {};
@@ -26,7 +25,6 @@ let displayFullGraph4 = true;
 
  //Variable element holding data set query paths during the counting loop
  let pushElement;
- let pushComparisioElement;
 
  // AnyChart json-object for chart 1,3,4
  let pieChart = {
@@ -66,43 +64,45 @@ let displayFullGraph4 = true;
 ///////////////////////////////////////////////////////
 
 function checkLocalStorage(){
-  if(localStorage.getItem('showfullset'))
-  { 
+
+  //Showing full set
+  if(localStorage.getItem('showfullset')) { 
+    graph4HideSmallValues = true;
+    displayFullDataSet = localStorage.getItem('showfullset');
+    numberOfEntriesToDisplay = 47748
     localStorage.removeItem('numberofentries');
     localStorage.removeItem('showfullset');
-    displayFullDataSet = localStorage.getItem('showfullset');
     document.getElementById('entriesInput').value = "";
-    graph4HideSmallValues = true;
-    NumberOfEntriesToDisplay = 47748
+    
   }
 
-  if(localStorage.getItem('numberofentries'))
-  {
-    NumberOfEntriesToDisplay = localStorage.getItem('numberofentries');
+  //Show a certain number of data
+  if(localStorage.getItem('numberofentries')) {
     displayFullDataSet = false;
+    numberOfEntriesToDisplay = localStorage.getItem('numberofentries');
     localStorage.removeItem('showfullset');
   }
 
-  if(localStorage.getItem('showallgraph4'))
-  {
+  //Show all data sizes in graph 4
+  if(localStorage.getItem('showallgraph4')) {
+    graph4HideSmallValues = false;
+    graph4SmallValue=1;
     answerSizeInput = localStorage.getItem('showallgraph4');
     localStorage.removeItem('showallgraph4');
     localStorage.removeItem('graph4smallvalue');
     localStorage.removeItem('graph4hidenulls');
     localStorage.removeItem('graph4hidesmalls');
-    graph4HideSmallValues = false;
-    graph4SmallValue=1;
-    document.getElementById('answerSizeInput').value = "";
     let button = document.getElementById('answerSizeShowAll');
     button.disabled = true;
     document.getElementById('answerSizeShowAll').style.backgroundColor = 'green'
     document.getElementById('answerSizeShowAll').innerHTML = "Showing all answers";
+    document.getElementById('answerSizeInput').value = "";
   }
 
-  if(localStorage.getItem('graph4hidenulls'))
-  {
-    graph4HideNullUndefinedValues = localStorage.getItem('graph4hidenulls');
+  //Hide "-" and "0" in data sizes in graph 4
+  if(localStorage.getItem('graph4hidenulls')) {
     graph4HideNullUndefinedValues = true;
+    graph4HideNullUndefinedValues = localStorage.getItem('graph4hidenulls');
     document.getElementById('answerSizeHideEmpty').innerHTML = "Hiding empty sizes";
     document.getElementById('answerSizeHideEmpty').style.backgroundColor = 'green'
     document.getElementById('answerSizeShowAll').style.backgroundColor = 'grey'
@@ -112,53 +112,47 @@ function checkLocalStorage(){
     
   }
 
-  if(localStorage.getItem('graph4hidesmalls'))
-  {
-      graph4HideSmallValues = localStorage.getItem('graph4hidesmalls');
-      graph4HideSmallValues = true;
-      graph4SmallValue = 100;
-      document.getElementById('answerSizeInput').value = 100;
+  //Hide small sizes < 100 in graph 4
+  if(localStorage.getItem('graph4hidesmalls')) {
+    graph4HideSmallValues = true;
+    graph4HideSmallValues = localStorage.getItem('graph4hidesmalls');
+    graph4SmallValue = 100;
+    document.getElementById('answerSizeInput').value = 100;
 
-      if(graph4SmallValue >= 101)
-      {
-        document.getElementById('answerSizeHideSmall').innerHTML = "Hide small sizes < 100";
-        document.getElementById('answerSizeHideSmall').style.backgroundColor = 'grey'
-      }
-      else
-      
-      {
+    if(graph4SmallValue >= 101) {
+      document.getElementById('answerSizeHideSmall').innerHTML = "Hide small sizes < 100";
+      document.getElementById('answerSizeHideSmall').style.backgroundColor = 'grey'
+    }
+    else{
         document.getElementById('answerSizeHideSmall').innerHTML = "Hiding small sizes < 100";
         document.getElementById('answerSizeHideSmall').style.backgroundColor = 'green'
-      }
-      document.getElementById('answerSizeShowAll').style.backgroundColor = 'grey'
-      
-      localStorage.removeItem('graph4hidesmalls');
-      let button = document.getElementById('answerSizeHideSmall');
-      button.disabled = true;
-      document.getElementById('answerSizeShowAll').innerHTML = "Show all answers";
+    }
+
+    document.getElementById('answerSizeShowAll').style.backgroundColor = 'grey'
+    localStorage.removeItem('graph4hidesmalls');
+    let button = document.getElementById('answerSizeHideSmall');
+    button.disabled = true;
+    document.getElementById('answerSizeShowAll').innerHTML = "Show all answers";
   }
 
-  if(localStorage.getItem('graph4smallvalue'))
-  {
-    
-    graph4SmallValue = localStorage.getItem('graph4smallvalue');
+  //Set a smallest value for small sizes to hide in graph 4
+  if(localStorage.getItem('graph4smallvalue')) {
     graph4HideSmallValues = true;
+    graph4SmallValue = localStorage.getItem('graph4smallvalue');
     if(graph4SmallValue >= 101)
     {
+      localStorage.removeItem('graph4hidesmalls');
       document.getElementById('answerSizeShowAll').innerHTML = "Show all answers";
       document.getElementById('answerSizeHideSmall').innerHTML = "Hide small sizes < 100";
       document.getElementById('answerSizeHideSmall').style.backgroundColor = 'grey'
-      document.getElementById('answerSizeShowAll').style.backgroundColor = 'grey'
-      localStorage.removeItem('graph4hidesmalls');
-    }else
-      
-      {
-        document.getElementById('answerSizeHideSmall').innerHTML = "Hiding small sizes < 100";
-        document.getElementById('answerSizeHideSmall').style.backgroundColor = 'green'
-        let button = document.getElementById('answerSizeHideSmall');
+      document.getElementById('answerSizeShowAll').style.backgroundColor = 'grey' 
+    }
+    else {
+      document.getElementById('answerSizeHideSmall').innerHTML = "Hiding small sizes < 100";
+      document.getElementById('answerSizeHideSmall').style.backgroundColor = 'green'
+      let button = document.getElementById('answerSizeHideSmall');
       button.disabled = true;
-      }
-    
+    }
   }
 }
 
@@ -177,7 +171,7 @@ jQuery(document).ready(function() {
       epaDataRecords  = data;
       
       if(displayFullDataSet)
-      {NumberOfEntriesToDisplay = 47748};
+      {numberOfEntriesToDisplay = 47748};
       move();
     
 
@@ -240,7 +234,7 @@ jQuery(document).ready(function() {
         result.splice(0,1);
 
         //Restructure the JSON data for all 47748 entries
-        for (let index = 0; index < NumberOfEntriesToDisplay; index++) {
+        for (let index = 0; index < numberOfEntriesToDisplay; index++) {
 
           //Set data order by 'preferred Order' function
           let data = preferredOrder(result[index], [
