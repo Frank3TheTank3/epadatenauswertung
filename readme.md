@@ -2,9 +2,16 @@
 
 **Auswertung von Serverzugriffen von EPA**
 
-Open the 'AsignmentUfirstDatenauswetung' folder in VS-Code and use the Live-Server plugin to host the 'epa.html'.
+To start up the project open it in VS-Code, open a terminal, go to the project directory and enter ‘node index.js’. The app will be hosted locally @ http://127.0.0.1:8080
 
-**How to use a custum epa-http.txt**
+**Technologies used:**
+
+NodeJS
+JavaScript + jQuery
+HTML / CSS
+AnyChart CDN from https://www.anychart.com/de/
+
+**USING ANOTHER epa-http.txt**
 
 Add these header-names to the first line of the custom 'epa-http.txt' document.
 
