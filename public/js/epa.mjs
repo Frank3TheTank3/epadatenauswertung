@@ -17,8 +17,8 @@ let startEntriesToDisplay = 0;
 let endEntriesToDisplay = 0;
 let displayFullDataSet = true;
 let graph4HideNullUndefinedValues = false;
-let graph4HideSmallValues = false;
-let graph4SmallValue = 100;
+let graph4HideSmallValues = true;
+let graph4SmallValue = 1000;
 let appHasStarted = false;
  //Create object to hold key number and data value after counting double entries
  let counts = {};
@@ -62,6 +62,7 @@ let appHasStarted = false;
  let dataSetToCount = new Array();
 
  let containerName;
+
 ///////////////////////////////////////////////////////
 //            Check Local storage settings           //
 ///////////////////////////////////////////////////////
@@ -112,32 +113,18 @@ function checkLocalStorage(){
 
   //Show all data sizes in graph 4
   if(localStorage.getItem('showallgraph4')) {
-    graph4HideSmallValues = false;
-    graph4SmallValue=1;
+    graph4SmallValue=1000;
     answerSizeInput = localStorage.getItem('showallgraph4');
     localStorage.removeItem('showallgraph4');
     localStorage.removeItem('graph4smallvalue');
-    localStorage.removeItem('graph4hidenulls');
     localStorage.removeItem('graph4hidesmalls');
     let button = getByID('answerSizeShowAll');
     button.disabled = true;
     getByID('answerSizeShowAll').style.backgroundColor = 'green'
-    getByID('answerSizeShowAll').innerHTML = "Showing all answers";
+    getByID('answerSizeShowAll').innerHTML = "Answers with code 200 > 1000B";
     getByID('answerSizeInput').value = "";
   }
 
-  //Hide "-" and "0" in data sizes in graph 4
-  if(localStorage.getItem('graph4hidenulls')) {
-    //graph4HideNullUndefinedValues = true;
-    graph4HideNullUndefinedValues = localStorage.getItem('graph4hidenulls');
-    getByID('answerSizeHideEmpty').innerHTML = "Hiding empty sizes";
-    getByID('answerSizeHideEmpty').style.backgroundColor = 'green'
-    getByID('answerSizeShowAll').style.backgroundColor = 'grey'
-    getByID('answerSizeShowAll').innerHTML = "Show all answers";
-    let button = document.getElementById('answerSizeHideEmpty');
-    button.disabled = true;
-    
-  }
 
   //Hide small sizes < 100 in graph 4
   if(localStorage.getItem('graph4hidesmalls')) {
@@ -145,6 +132,11 @@ function checkLocalStorage(){
     graph4HideSmallValues = localStorage.getItem('graph4hidesmalls');
     graph4SmallValue = 100;
     getByID('answerSizeInput').value = 100;
+
+    getByID('answerSizeShowAll').style.backgroundColor = 'green'
+    getByID('answerSizeShowAll').innerHTML = "Show Answers with code 200 > 1000B";
+    let answeSizeButton = getByID('answerSizeShowAll');
+    answeSizeButton.disabled = false;
 
     if(graph4SmallValue >= 101) {
       getByID('answerSizeHideSmall').innerHTML = "Hide the small sizes < 100";
@@ -155,24 +147,23 @@ function checkLocalStorage(){
       getByID('answerSizeHideSmall').style.backgroundColor = 'green'
     }
 
-    getByID('answerSizeShowAll').style.backgroundColor = 'grey'
     localStorage.removeItem('graph4hidesmalls');
     let button = document.getElementById('answerSizeHideSmall');
     button.disabled = true;
-    getByID('answerSizeShowAll').innerHTML = "Show all answers";
   }
 
   //Set a smallest value for small sizes to hide in graph 4
   if(localStorage.getItem('graph4smallvalue')) {
     graph4HideSmallValues = true;
     graph4SmallValue = localStorage.getItem('graph4smallvalue');
+    
+   
+
     if(graph4SmallValue >= 101)
     {
       localStorage.removeItem('graph4hidesmalls');
-      getByID('answerSizeShowAll').innerHTML = "Show all answers";
       getByID('answerSizeHideSmall').innerHTML = "Hide small sizes < 100";
       getByID('answerSizeHideSmall').style.backgroundColor = 'grey'
-      getByID('answerSizeShowAll').style.backgroundColor = 'grey' 
     }
     else {
       getByID('answerSizeHideSmall').innerHTML = "Hiding small sizes < 100";
@@ -180,6 +171,11 @@ function checkLocalStorage(){
       let button = getByID('answerSizeHideSmall');
       button.disabled = true;
     }
+
+    getByID('answerSizeShowAll').style.backgroundColor = 'green'
+    getByID('answerSizeShowAll').innerHTML = "Show Answers with code 200 > 1000B";
+    let answeSizeButton = getByID('answerSizeShowAll');
+    answeSizeButton.disabled = false;
     localStorage.removeItem('graph4smallvalue');
   }
 
@@ -372,15 +368,20 @@ function countDataSet(epaDataRecords)
     //Loop through epDataRecords and add chosen data base to 'pushElement'
     epaDataRecords.forEach(element => {
     switch (index) {
-      case 1: pushElement = element.request.method;
+      case 1: 
+        pushElement = element.request.method;
         break;
       case 2: 
-      pushElement = (element.datetime.day) + ".9.95 " + (element.datetime.hour) + ":" + (element.datetime.minute); 
-      pushComparisioElement = element.host;
+        pushElement = (element.datetime.day) + ".9.95 " + (element.datetime.hour) + ":" + (element.datetime.minute); 
         break;
       case 3: pushElement = element.response_code;
         break;
-      case 4: pushElement = element.document_size;
+      case 4: 
+        pushComparisioElement = element.response_code;
+        if(pushComparisioElement === '200')
+        {
+        pushElement = "Answer size: " + element.document_size + " Answer code: " + element.response_code;
+        }
         break;
       default: return;
         break;

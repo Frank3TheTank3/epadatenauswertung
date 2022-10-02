@@ -58,7 +58,7 @@ function storeInputValue(nameOfItem){
 
   if(nameOfItem === 'graph4smallvalue')
   {
-    if(document.getElementById('answerSizeInput').value < 5717)
+    if(document.getElementById('answerSizeInput').value < 3603)
     {
     let itemValue = document.getElementById('answerSizeInput').value;
     localStorage.setItem(nameOfItem, itemValue);
@@ -66,7 +66,7 @@ function storeInputValue(nameOfItem){
     }
     else
     {
-      alert("Please select a value between 1 and 5717")
+      alert("Please select a value between 1 and 3603")
     }
   }
 
