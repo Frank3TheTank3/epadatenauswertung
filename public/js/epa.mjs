@@ -192,6 +192,25 @@ function getByID(elementName){
 checkLocalStorage();
 
 ///////////////////////////////////////////////////////
+//     Saving new Json file to output.json           //
+///////////////////////////////////////////////////////
+
+// file system module to perform file operations
+
+
+function sendData(dataToSave) {
+  $.ajax({
+      url: '/save',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({dataToSave}),
+      dataType: 'json'
+  });
+  
+}
+
+
+///////////////////////////////////////////////////////
 //       Jquery on document ready function           //
 ///////////////////////////////////////////////////////
 
@@ -290,7 +309,7 @@ jQuery(document).ready(function() {
           //Push restructured text data to epaDataRecords
           epaDataRecords.push(renamedData_R1)
         }
-
+        sendData(epaDataRecords)
         //Log epaDataRecords to display data set
         console.log("Length of data set: " + epaDataRecords.length);
 
@@ -299,6 +318,7 @@ jQuery(document).ready(function() {
         move();
         
       });
+
     });
 });
 
