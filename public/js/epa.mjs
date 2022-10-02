@@ -16,9 +16,8 @@ let numberOfEntriesToDisplay = 5000;
 let startEntriesToDisplay = 0;
 let endEntriesToDisplay = 0;
 let displayFullDataSet = true;
-let graph4HideNullUndefinedValues = false;
 let graph4HideSmallValues = false;
-let graph4SmallValue = 100;
+let graph4SmallValue = 1;
 let appHasStarted = false;
  //Create object to hold key number and data value after counting double entries
  let counts = {};
@@ -79,7 +78,6 @@ function checkLocalStorage(){
   //Showing full set
   if(localStorage.getItem('showfullset')) { 
     numberOfEntriesToDisplay = 47748
-    graph4HideSmallValues = true;
     displayFullDataSet = localStorage.getItem('showfullset');
     localStorage.removeItem('numberofentries');
     localStorage.removeItem('showfullset');
@@ -377,7 +375,11 @@ function countDataSet(epaDataRecords)
         pushComparisioElement = element.response_code;
         if(pushComparisioElement === '200')
         {
-        pushElement = "Answer size: " + element.document_size + " Answer code: " + element.response_code;
+          console.log(graph4SmallValue)
+          if(element.document_size > graph4SmallValue && element.document_size < 1000)
+          {
+            pushElement = element.document_size + "B / Code: " + element.response_code;
+          }
         }
         break;
       default: return;
@@ -414,33 +416,12 @@ function countDataSetDoubles(index) {
       precounts['x'] =  element
       precounts['value'] = (counts[element] || 0) + 1;
     }
+    else if (index === 4)
+    {
+      counts[element] = (counts[element] || 0) + 1;
 
-    //Set chart nr. 4 data structure with checks for Hide_SmallValues & Hide_NullUndefinedValues
-    if(index === 4)
-    {  //console.log('graph4HideSmallValues')
-      //console.log(graph4HideNullUndefinedValues)
-
-      if(graph4HideSmallValues || graph4SmallValue)
-      {
-        if(element != "0" && element != "-" &&  element != undefined) {
-
-          editcounts[element] = (editcounts[element] || 0) + 1;
-
-          if(((editcounts[element] || 0) + 1) >= graph4SmallValue && ((editcounts[element] || 0) + 1) < 1000){
-            counts[element] = (editcounts[element] || 0) + 1;
-          }
-        }
-      }
-      else if(!graph4HideSmallValues) 
-      {
-      if(element != "0" && element != "-" &&  element != undefined) {
-        editcounts[element] = (editcounts[element] || 0) + 1;
-        if(((editcounts[element] || 0) + 1) < 1000){
-          counts[element] = (counts[element] || 0) + 1;
-          }
-        } 
-      }
     }
+
     //Set chart 1 and 3 data by checking SetDoubles
     else{ 
       counts[element] = (counts[element] || 0) + 1;
