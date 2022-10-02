@@ -74,9 +74,9 @@ function storeInputValue(nameOfItem){
   {
     let endInput = document.getElementById('entriesEndInput');
     let startInput = document.getElementById('entriesStartInput');
-    if(startInput.value < endInput.value)
+    if(startInput || endInput || startInput.value < endInput.value)
     {
-      checkStartInputValue(startInput);
+      checkStartInputValue(startInput, endInput);
       checkEndInputValue(endInput);
       window.location.reload();
 
@@ -89,7 +89,7 @@ function storeInputValue(nameOfItem){
   }
 }
 //Check start value
-function checkStartInputValue(startInput)
+function checkStartInputValue(startInput, endInput)
 { 
   
   if(startInput.value < 47748)
