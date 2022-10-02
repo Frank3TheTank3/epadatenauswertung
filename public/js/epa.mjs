@@ -17,8 +17,8 @@ let startEntriesToDisplay = 0;
 let endEntriesToDisplay = 0;
 let displayFullDataSet = true;
 let graph4HideNullUndefinedValues = false;
-let graph4HideSmallValues = true;
-let graph4SmallValue = 1000;
+let graph4HideSmallValues = false;
+let graph4SmallValue = 100;
 let appHasStarted = false;
  //Create object to hold key number and data value after counting double entries
  let counts = {};
@@ -113,7 +113,7 @@ function checkLocalStorage(){
 
   //Show all data sizes in graph 4
   if(localStorage.getItem('showallgraph4')) {
-    graph4SmallValue=1000;
+    graph4SmallValue=1;
     answerSizeInput = localStorage.getItem('showallgraph4');
     localStorage.removeItem('showallgraph4');
     localStorage.removeItem('graph4smallvalue');
@@ -121,20 +121,19 @@ function checkLocalStorage(){
     let button = getByID('answerSizeShowAll');
     button.disabled = true;
     getByID('answerSizeShowAll').style.backgroundColor = 'green'
-    getByID('answerSizeShowAll').innerHTML = "Answers with code 200 > 1000B";
+    getByID('answerSizeShowAll').innerHTML = "Answers with code 200 < 1000B";
     getByID('answerSizeInput').value = "";
   }
 
 
   //Hide small sizes < 100 in graph 4
   if(localStorage.getItem('graph4hidesmalls')) {
-    graph4HideSmallValues = true;
     graph4HideSmallValues = localStorage.getItem('graph4hidesmalls');
     graph4SmallValue = 100;
     getByID('answerSizeInput').value = 100;
 
     getByID('answerSizeShowAll').style.backgroundColor = 'green'
-    getByID('answerSizeShowAll').innerHTML = "Show Answers with code 200 > 1000B";
+    getByID('answerSizeShowAll').innerHTML = "Show Answers with code 200 < 1000B";
     let answeSizeButton = getByID('answerSizeShowAll');
     answeSizeButton.disabled = false;
 
@@ -147,18 +146,17 @@ function checkLocalStorage(){
       getByID('answerSizeHideSmall').style.backgroundColor = 'green'
     }
 
-    localStorage.removeItem('graph4hidesmalls');
+    //localStorage.removeItem('graph4hidesmalls');
     let button = document.getElementById('answerSizeHideSmall');
     button.disabled = true;
   }
 
   //Set a smallest value for small sizes to hide in graph 4
   if(localStorage.getItem('graph4smallvalue')) {
-    graph4HideSmallValues = true;
     graph4SmallValue = localStorage.getItem('graph4smallvalue');
-    
+    console.log(graph4SmallValue)
    
-
+    localStorage.removeItem('graph4hidesmalls');
     if(graph4SmallValue >= 101)
     {
       localStorage.removeItem('graph4hidesmalls');
@@ -173,10 +171,9 @@ function checkLocalStorage(){
     }
 
     getByID('answerSizeShowAll').style.backgroundColor = 'green'
-    getByID('answerSizeShowAll').innerHTML = "Show Answers with code 200 > 1000B";
+    getByID('answerSizeShowAll').innerHTML = "Show Answers with code 200 < 1000B";
     let answeSizeButton = getByID('answerSizeShowAll');
     answeSizeButton.disabled = false;
-    localStorage.removeItem('graph4smallvalue');
   }
 
 }
@@ -420,59 +417,35 @@ function countDataSetDoubles(index) {
 
     //Set chart nr. 4 data structure with checks for Hide_SmallValues & Hide_NullUndefinedValues
     if(index === 4)
-    {
+    {  //console.log('graph4HideSmallValues')
       //console.log(graph4HideNullUndefinedValues)
-      switch (graph4HideNullUndefinedValues) {
-        case true:  
-        if(element != "0" && element != "-" &&  element != undefined)
-          {
-            editcounts[element] = (editcounts[element] || 0) + 1;
-            if(graph4HideSmallValues && ((editcounts[element] || 0) + 1) >= graph4SmallValue)
-            {
-              counts[element] = (editcounts[element] || 0) + 1;
-            }
-            if(!graph4HideSmallValues && ((editcounts[element] || 0) + 1) >= 0)
-            {
-              counts[element] = (counts[element] || 0) + 1;
-            }
-          }
-          break;
-        case false: 
-          if(element != undefined)
-          {
-            
-            editcounts[element] = (editcounts[element] || 0) + 1;
-            if(graph4HideSmallValues && ((editcounts[element] || 0) + 1) >= graph4SmallValue)
-            {
-              counts[element] = (editcounts[element] || 0) + 1;
-            }
-            if(!graph4HideSmallValues && ((editcounts[element] || 0) + 1) >= 0)
-            {
-              counts[element] = (counts[element] || 0) + 1;
-            }
-          }
-          break;
-        default: 
-          if(element != "0" && element != "-" &&  element != undefined)
-          {
-            editcounts[element] = (editcounts[element] || 0) + 1;
-            if(graph4HideSmallValues && ((editcounts[element] || 0) + 1) >= graph4SmallValue)
-            {
-              counts[element] = (editcounts[element] || 0) + 1;
-            }
-            if(!graph4HideSmallValues && ((editcounts[element] || 0) + 1) >= 0)
-            {
-              counts[element] = (counts[element] || 0) + 1;
-            }
-          }
-          break;
-      } 
-    }
 
+      if(graph4HideSmallValues || graph4SmallValue)
+      {
+        if(element != "0" && element != "-" &&  element != undefined) {
+
+          editcounts[element] = (editcounts[element] || 0) + 1;
+
+          if(((editcounts[element] || 0) + 1) >= graph4SmallValue && ((editcounts[element] || 0) + 1) < 1000){
+            counts[element] = (editcounts[element] || 0) + 1;
+          }
+        }
+      }
+      else if(!graph4HideSmallValues) 
+      {
+      if(element != "0" && element != "-" &&  element != undefined) {
+        editcounts[element] = (editcounts[element] || 0) + 1;
+        if(((editcounts[element] || 0) + 1) < 1000){
+          counts[element] = (counts[element] || 0) + 1;
+          }
+        } 
+      }
+    }
     //Set chart 1 and 3 data by checking SetDoubles
     else{ 
       counts[element] = (counts[element] || 0) + 1;
     }
+ 
   });
 }
 
