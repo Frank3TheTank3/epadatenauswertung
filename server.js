@@ -14,9 +14,6 @@ app.get('/', function(req, res){
 
 
 app.post('/save', function(request, response) {
-  //saveFile(request.query.url, request.body.body);
- console.log(request)
- console.log(request.body)
   fs.writeFile("output.json", JSON.stringify(request.body), 'utf8', function (err) {
     if (err) {
         console.log("An error occured while writing JSON Object to File.");
