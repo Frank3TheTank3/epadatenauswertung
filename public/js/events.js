@@ -79,7 +79,18 @@ function storeInputValue(nameOfItem){
     {
       alert("Please enter a scope")
     }
-    else if(startInput || endInput || startInput.value < endInput.value)
+    else if (startInput.value < 0 || endInput.value.length < 0)
+    {
+      alert("Negativ numbers are not allowed")
+    }
+    else if(startInput.value < endInput.value)
+    {
+      checkStartInputValue(startInput, endInput);
+      checkEndInputValue(startInput, endInput);
+      window.location.reload();
+
+    }
+    else if(startInput.value.length > 0 && endInput.value.length === 0 || endInput.value.length > 0 && startInput.value.length === 0 )
     {
       checkStartInputValue(startInput, endInput);
       checkEndInputValue(startInput, endInput);
@@ -113,10 +124,7 @@ function checkEndInputValue(startInput, endInput)
   
   if(endInput.value > 1 && endInput.value < 47748)
   {
-    
     localStorage.setItem("endEntries", endInput.value);
-    
-    console.log(endInput.value)
   }
   //If endinput value = null then remove endEntries from localstorage
   else if(endInput.value  === "" || endInput.value  === null || endInput.value  === undefined)
@@ -132,7 +140,6 @@ function checkEndInputValue(startInput, endInput)
 
 }
 
-
 function resetSettings(){
     document.getElementById('answerSizeInput').value = "";
     document.getElementById('entriesInput').value = "";
@@ -142,8 +149,3 @@ function resetSettings(){
     localStorage.setItem("appHasStarted", true);
     window.location.reload();
 }
-
-
-
-
-  

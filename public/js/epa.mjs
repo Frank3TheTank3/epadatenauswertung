@@ -88,13 +88,13 @@ function checkLocalStorage(){
   //Show with an start entry
   if(localStorage.getItem('startEntries')) { 
     startEntriesToDisplay = localStorage.getItem('startEntries');
-    console.log("Start entries" + startEntriesToDisplay)
+    console.log("Scope starting at entry: " + startEntriesToDisplay)
   }
 
   //Show with an end entry
   if(localStorage.getItem('endEntries')) { 
     endEntriesToDisplay= localStorage.getItem('endEntries');
-    console.log("End entries" + endEntriesToDisplay)
+    console.log("Scope ending at entry: " + endEntriesToDisplay)
   }
 
   //Show a certain number of data
