@@ -2,21 +2,20 @@
 
 **Auswertung von Serverzugriffen von EPA**
 
-To start up the project open it in VS-Code, open a terminal, go to the project directory and enter ‘node index.js’. The app will be hosted locally @ http://127.0.0.1:8080
+This web-application CHECKS local storage for settings, then LOADS in data from epa-http.txt
+The data is FORMATTED to fit the json structure in 'access_log_EPA_Jul95_parsed.json'
+The data is SPLIT up into 4 sets, COUNTED through and DISPLAYED in 4 separate charts from 'AnyChart' (CDN Extension)
+
+To start up the project open it in VS-Code, open a terminal, go to the project directory and enter ‘node server.js’. 
+
+The app will be hosted locally @ http://127.0.0.1:8080
 
 **Technologies used:**
 
-NodeJS
-JavaScript + jQuery
-HTML / CSS
-AnyChart CDN from https://www.anychart.com/de/
+NodeJS / JavaScript + jQuery HTML / CSS + AnyChart CDN from https://www.anychart.com/de/
 
 **USING ANOTHER epa-http.txt**
 
-Add these header-names to the first line of the custom 'epa-http.txt' document.
+Add these header-names to the first line of any custom 'epa-http.txt':
 
 **host timestamp method url protocol response_code document_size**
-
-Make sure that the data in the 'epa-http.txt' is in following order:
-
-**141.243.1.172 [29:23:53:25] "GET /Software.html HTTP/1.0" 200 1497**
