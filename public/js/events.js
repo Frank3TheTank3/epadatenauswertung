@@ -82,7 +82,7 @@ function storeInputValue(nameOfItem){
     else if(startInput || endInput || startInput.value < endInput.value)
     {
       checkStartInputValue(startInput, endInput);
-      checkEndInputValue(endInput);
+      checkEndInputValue(startInput, endInput);
       window.location.reload();
 
     }
@@ -108,7 +108,7 @@ function checkStartInputValue(startInput, endInput)
 }
 
 //Check end value
-function checkEndInputValue(endInput)
+function checkEndInputValue(startInput, endInput)
 {
   
   if(endInput.value > 1 && endInput.value < 47748)
@@ -127,7 +127,7 @@ function checkEndInputValue(endInput)
   //Else 
   else
   {
-    alert("Please select a value between " + startInput.value + " and 47748")
+    alert("Please select a end value between " + startInput.value + " and 47748")
   }
 
 }
