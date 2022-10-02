@@ -130,7 +130,6 @@ function checkLocalStorage(){
   if(localStorage.getItem('graph4hidenulls')) {
     //graph4HideNullUndefinedValues = true;
     graph4HideNullUndefinedValues = localStorage.getItem('graph4hidenulls');
-    console.log(graph4HideNullUndefinedValues)
     getByID('answerSizeHideEmpty').innerHTML = "Hiding empty sizes";
     getByID('answerSizeHideEmpty').style.backgroundColor = 'green'
     getByID('answerSizeShowAll').style.backgroundColor = 'grey'
@@ -167,7 +166,6 @@ function checkLocalStorage(){
   if(localStorage.getItem('graph4smallvalue')) {
     graph4HideSmallValues = true;
     graph4SmallValue = localStorage.getItem('graph4smallvalue');
-    console.log(graph4SmallValue)
     if(graph4SmallValue >= 101)
     {
       localStorage.removeItem('graph4hidesmalls');
