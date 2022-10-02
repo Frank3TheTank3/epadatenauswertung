@@ -163,6 +163,17 @@ button:hover{
     color: white;
 }
 
+#downloadFile{
+    background-color:rgb(255, 121, 59) ; color: rgb(255, 255, 255);
+}
+
+#resetSettings{
+    background-color:red ; color: rgb(255, 255, 255);
+}
+
+#showAll {
+    background-color:green ;
+}
 
 /* ==========================================================================
    Media Queries

@@ -211,7 +211,15 @@ function sendData(dataToSave) {
   });
   
 }
-
+function downloadObjectAsJson(dataToSave){
+  var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataToSave));
+  var downloadAnchorNode = document.createElement('a');
+  downloadAnchorNode.setAttribute("href",     dataStr);
+  downloadAnchorNode.setAttribute("download", "epadatenauswertung_new" + ".json");
+  document.body.appendChild(downloadAnchorNode); // required for firefox
+  downloadAnchorNode.click();
+  downloadAnchorNode.remove();
+}
 
 ///////////////////////////////////////////////////////
 //       Jquery on document ready function           //
@@ -312,10 +320,20 @@ jQuery(document).ready(function() {
           //Push restructured text data to epaDataRecords
           epaDataRecords.push(renamedData_R1)
         }
+
+        //Send all new data tp server to be saved locally
         if(appHasStarted === false)
         {
         sendData(epaDataRecords)
+       
         }
+
+        //Create downloadbutton
+        var downloadBtn = document.getElementById("downloadFile");
+        downloadBtn.addEventListener("click", function() {
+          downloadObjectAsJson(epaDataRecords)
+        }, false);
+
         //Log epaDataRecords to display data set
         console.log("Length of data set: " + epaDataRecords.length);
 

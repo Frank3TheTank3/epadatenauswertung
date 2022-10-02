@@ -17,11 +17,11 @@
       <div id="titlespace" class="titleblock">
         <div id="titlebuttons">
           <h1>Auswertung von Serverzugriffen von EPA</h1>
-          <button style="background-color:green ;" onclick="storeItemValue('showfullset', true)">Show all (47748)</button>
+          <button id="showAll" onclick="storeItemValue('showfullset', true)">Show all (47748)</button>
           <input id="entriesInput" type="text" placeholder="Enter Number of entries">
           <button id="entriesButton" onclick="storeInputValue('numberofentries')">Show entries</button>
-          <button id="resetSettings" style="background-color:red ; color: rgb(255, 255, 255);"onclick="resetSettings()">Reset</button>
-          <button id="downloadFile" style="background-color:rgb(255, 121, 59) ; color: rgb(255, 255, 255);">Download as .json (47748)</button>
+          <button id="resetSettings" onclick="resetSettings()">Reset</button>
+          <button id="downloadFile"> Download as .json (47748) </button>
         </div>
       </div>
 
@@ -36,8 +36,8 @@
         </div>
         <div class="block">
           <h2>Requests pro Minute</h2>
-          <input id="entriesStartInput" type="text" placeholder="Enter a start nr. of entries">
-          <input id="entriesEndInput" type="text" placeholder="Enter a end nr. of entries">
+          <input id="entriesStartInput" type="text" placeholder="Enter a start nr.">
+          <input id="entriesEndInput" type="text" placeholder="Enter a end nr.">
           <button id="entriesScopedButton" onclick="storeInputValue('scopedEntries')">Show scoped entries</button>
           <button id="resetSettings" style="background-color:red ; color: rgb(255, 255, 255);"onclick="resetSettings()">Reset all (47748)</button>
           
