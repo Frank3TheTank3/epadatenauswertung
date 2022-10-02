@@ -72,16 +72,20 @@ function storeInputValue(nameOfItem){
 
   if(nameOfItem === 'scopedEntries')
   {
+   
     let endInput = document.getElementById('entriesEndInput');
     let startInput = document.getElementById('entriesStartInput');
-    if(startInput || endInput || startInput.value < endInput.value)
+    if (startInput.value.length === 0 && endInput.value.length === 0)
+    {
+      alert("Please enter a scope")
+    }
+    else if(startInput || endInput || startInput.value < endInput.value)
     {
       checkStartInputValue(startInput, endInput);
       checkEndInputValue(endInput);
       window.location.reload();
 
     }
-    
     else
     {
       alert("Your selection is not possible")

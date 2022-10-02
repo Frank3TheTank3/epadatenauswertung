@@ -12,14 +12,13 @@ app.get('/', function(req, res){
   res.sendFile(path.join(__dirname + '/epa.html'));
 });
 
-
 app.post('/save', function(request, response) {
+  console.log(request.body)
   fs.writeFile("output.json", JSON.stringify(request.body), 'utf8', function (err) {
     if (err) {
         console.log("An error occured while writing JSON Object to File.");
         return console.log(err);
     }
- 
     console.log("JSON file has been saved.");
   });
 

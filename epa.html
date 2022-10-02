@@ -20,11 +20,10 @@
           <button id="showAll" onclick="storeItemValue('showfullset', true)">Show all (47748)</button>
           <input id="entriesInput" type="text" placeholder="Enter Number of entries">
           <button id="entriesButton" onclick="storeInputValue('numberofentries')">Show entries</button>
-          <button id="resetSettings" onclick="resetSettings()">Reset</button>
+          <button class="resetSettings" onclick="resetSettings()">Reset</button>
           <button id="downloadFile"> Download as .json (47748) </button>
         </div>
       </div>
-
       <div id="graphs">
         <div class="block" >
           <h2>HTTP Methoden</h2>
@@ -32,18 +31,14 @@
             <div id="container1" >
             </div>
           </span>
-         
         </div>
         <div class="block">
           <h2>Requests pro Minute</h2>
           <input id="entriesStartInput" type="text" placeholder="Enter a start nr.">
           <input id="entriesEndInput" type="text" placeholder="Enter a end nr.">
           <button id="entriesScopedButton" onclick="storeInputValue('scopedEntries')">Show scoped entries</button>
-          <button id="resetSettings" style="background-color:red ; color: rgb(255, 255, 255);"onclick="resetSettings()">Reset all (47748)</button>
-          
-          
+          <button class="resetSettings" onclick="resetSettings()">Reset all (47748)</button>
           <span id="requestsPerMinuteChart">
-            
             <div id="container2" ></div>
           </span>
         </div>

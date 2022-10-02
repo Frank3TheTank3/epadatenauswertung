@@ -140,7 +140,7 @@ button:hover{
 }
 
 #graphs button{
-    background-color: gray;
+    /*background-color: gray;*/
 }
 #graphs{
     display: flex;
@@ -167,7 +167,7 @@ button:hover{
     background-color:rgb(255, 121, 59) ; color: rgb(255, 255, 255);
 }
 
-#resetSettings{
+.resetSettings{
     background-color:red ; color: rgb(255, 255, 255);
 }
 
