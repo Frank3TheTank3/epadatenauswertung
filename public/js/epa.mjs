@@ -19,7 +19,7 @@ let displayFullDataSet = true;
 let graph4HideNullUndefinedValues = false;
 let graph4HideSmallValues = false;
 let graph4SmallValue = 100;
-
+let appHasStarted = false;
  //Create object to hold key number and data value after counting double entries
  let counts = {};
  let precounts = {};
@@ -71,6 +71,9 @@ function checkLocalStorage(){
 ///////////////////////////////////////////////////////
 //             Enteries and full data set            //
 ///////////////////////////////////////////////////////
+  if(localStorage.getItem('appHasStarted')) { 
+    appHasStarted = true;
+  }
 
   //Showing full set
   if(localStorage.getItem('showfullset')) { 
@@ -309,7 +312,10 @@ jQuery(document).ready(function() {
           //Push restructured text data to epaDataRecords
           epaDataRecords.push(renamedData_R1)
         }
+        if(appHasStarted === false)
+        {
         sendData(epaDataRecords)
+        }
         //Log epaDataRecords to display data set
         console.log("Length of data set: " + epaDataRecords.length);
 
@@ -376,6 +382,8 @@ function countDataSet(epaDataRecords)
     //Create Charts for container
     createDataCharts(index);
   }
+  appHasStarted = true;
+  localStorage.setItem("appHasStarted", true);
 }
 ///////////////////////////////////////////////////////
 //        Count the double in the datasets           //

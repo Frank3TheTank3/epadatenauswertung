@@ -72,49 +72,62 @@ function storeInputValue(nameOfItem){
 
   if(nameOfItem === 'scopedEntries')
   {
-    let startInput = document.getElementById('entriesStartInput');
     let endInput = document.getElementById('entriesEndInput');
-    //Check endinput value
+    let startInput = document.getElementById('entriesStartInput');
+    if(startInput.value < endInput.value)
+    {
+      checkStartInputValue(startInput);
+      checkEndInputValue(endInput);
+      window.location.reload();
+
+    }
     
-    if(endInput.value > 1 && endInput.value < 47748)
-    {
-      let itemValue = endInput.value;
-      localStorage.setItem("endEntries", itemValue);
-      
-      console.log(itemValue)
-    }
-    //If endinput value = null then remove endEntries from localstorage
-    else if(itemValue = null)
-    {
-
-      localStorage.removeItem('endEntries');
-    }
-    //Else 
     else
     {
-      alert("Please select a value between " + startInput.value + " and 47748")
+      alert("Your selection is not possible")
     }
-  
-
-    if(startInput.value < 47748)
-    {
-    let itemValue = document.getElementById('entriesStartInput').value;
-    localStorage.setItem("startEntries", itemValue);
-    }
-
-    else
-    {
-      alert("Please select a value between one and " + endInput.value)
-    }
-  
-    window.location.reload();
-
-
-
-
-
   }
 }
+//Check start value
+function checkStartInputValue(startInput)
+{ 
+  
+  if(startInput.value < 47748)
+  {
+    localStorage.setItem("startEntries", startInput.value);
+  }
+
+  else
+  {
+    alert("Please select a value between one and " + endInput.value)
+  }
+}
+
+//Check end value
+function checkEndInputValue(endInput)
+{
+  
+  if(endInput.value > 1 && endInput.value < 47748)
+  {
+    
+    localStorage.setItem("endEntries", endInput.value);
+    
+    console.log(endInput.value)
+  }
+  //If endinput value = null then remove endEntries from localstorage
+  else if(endInput.value  === "" || endInput.value  === null || endInput.value  === undefined)
+  {
+
+    localStorage.removeItem('endEntries');
+  }
+  //Else 
+  else
+  {
+    alert("Please select a value between " + startInput.value + " and 47748")
+  }
+
+}
+
 
 function resetSettings(){
     document.getElementById('answerSizeInput').value = "";
@@ -122,6 +135,7 @@ function resetSettings(){
     document.getElementById('entriesStartInput').value = "";
     document.getElementById('entriesEndInput').value = "";
     localStorage.clear();
+    localStorage.setItem("appHasStarted", true);
     window.location.reload();
 }
 
