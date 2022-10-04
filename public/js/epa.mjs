@@ -124,54 +124,59 @@ function checkLocalStorage(){
     getByID('answerSizeInput').value = "";
   }
 
+    //Set a smallest value for small sizes to hide in graph 4
+    if(localStorage.getItem('graph4smallvalue')) {
+    
+    graph4SmallValue = localStorage.getItem('graph4smallvalue');
+    if(graph4SmallValue >= 501)
+    {
+      localStorage.removeItem('graph4hidesmalls');
+      getByID('answerSizeHideSmall').innerHTML = "Hide small sizes < 500";
+      getByID('answerSizeHideSmall').style.backgroundColor = 'white'
+    }
+    else {
+      getByID('answerSizeHideSmall').innerHTML = "Hiding small sizes < 500";
+      getByID('answerSizeHideSmall').style.backgroundColor = 'green'
+      let button = getByID('answerSizeHideSmall');
+      button.disabled = true;
+      
+    }
+
+    getByID('answerSizeShowAll').style.backgroundColor = 'white'
+    getByID('answerSizeShowAll').innerHTML = "Show Answers with code 200 < 1000B";
+    let answeSizeButton = getByID('answerSizeShowAll');
+    answeSizeButton.disabled = false;
+    localStorage.removeItem('graph4smallvalue');
+    }
 
   //Hide small sizes < 100 in graph 4
   if(localStorage.getItem('graph4hidesmalls')) {
-    graph4HideSmallValues = localStorage.getItem('graph4hidesmalls');
-    graph4SmallValue = 100;
-    getByID('answerSizeInput').value = 100;
+    graph4SmallValue = 500;
+    getByID('answerSizeInput').value = 500;
 
-    getByID('answerSizeShowAll').style.backgroundColor = 'green'
+    //Show all button mutations
+    getByID('answerSizeShowAll').style.backgroundColor = 'white'
     getByID('answerSizeShowAll').innerHTML = "Show Answers with code 200 < 1000B";
     let answeSizeButton = getByID('answerSizeShowAll');
     answeSizeButton.disabled = false;
 
-    if(graph4SmallValue >= 101) {
-      getByID('answerSizeHideSmall').innerHTML = "Hide the small sizes < 100";
-      getByID('answerSizeHideSmall').style.backgroundColor = 'grey'
+    if(graph4SmallValue >= 501) {
+      getByID('answerSizeHideSmall').innerHTML = "Hide the small sizes < 500";
+      getByID('answerSizeHideSmall').style.backgroundColor = 'white'
     }
     else{
-      getByID('answerSizeHideSmall').innerHTML = "Hiding small sizes < 100";
+      getByID('answerSizeHideSmall').innerHTML = "Hiding small sizes < 500";
       getByID('answerSizeHideSmall').style.backgroundColor = 'green'
     }
 
     //localStorage.removeItem('graph4hidesmalls');
     let button = document.getElementById('answerSizeHideSmall');
     button.disabled = true;
-  }
-
-  //Set a smallest value for small sizes to hide in graph 4
-  if(localStorage.getItem('graph4smallvalue')) {
-    graph4SmallValue = localStorage.getItem('graph4smallvalue');
+   
     localStorage.removeItem('graph4hidesmalls');
-    if(graph4SmallValue >= 101)
-    {
-      localStorage.removeItem('graph4hidesmalls');
-      getByID('answerSizeHideSmall').innerHTML = "Hide small sizes < 100";
-      getByID('answerSizeHideSmall').style.backgroundColor = 'grey'
-    }
-    else {
-      getByID('answerSizeHideSmall').innerHTML = "Hiding small sizes < 100";
-      getByID('answerSizeHideSmall').style.backgroundColor = 'green'
-      let button = getByID('answerSizeHideSmall');
-      button.disabled = true;
-    }
-
-    getByID('answerSizeShowAll').style.backgroundColor = 'green'
-    getByID('answerSizeShowAll').innerHTML = "Show Answers with code 200 < 1000B";
-    let answeSizeButton = getByID('answerSizeShowAll');
-    answeSizeButton.disabled = false;
   }
+
+  
 
 }
 
@@ -377,7 +382,8 @@ function countDataSet(epaDataRecords)
         {
           if(parseInt(element.document_size) >= graph4SmallValue && parseInt(element.document_size) < 1000)
           {
-            pushElement = element.document_size + "B / Code: " + element.response_code;
+            pushElement = element.document_size + " Bytes / Code: " + element.response_code;
+            
           }
           else
           {break;}
