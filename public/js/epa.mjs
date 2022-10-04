@@ -111,7 +111,7 @@ function checkLocalStorage(){
 
   //Show all data sizes in graph 4
   if(localStorage.getItem('showallgraph4')) {
-    graph4SmallValue=1;
+    graph4SmallValue = 1;
     answerSizeInput = localStorage.getItem('showallgraph4');
     localStorage.removeItem('showallgraph4');
     localStorage.removeItem('graph4smallvalue');
@@ -375,11 +375,12 @@ function countDataSet(epaDataRecords)
         pushComparisioElement = element.response_code;
         if(pushComparisioElement === '200')
         {
-          console.log(graph4SmallValue)
-          if(element.document_size > graph4SmallValue && element.document_size < 1000)
+          if(parseInt(element.document_size) >= graph4SmallValue && parseInt(element.document_size) < 1000)
           {
             pushElement = element.document_size + "B / Code: " + element.response_code;
           }
+          else
+          {break;}
         }
         break;
       default: return;
@@ -400,6 +401,7 @@ function countDataSet(epaDataRecords)
   }
   appHasStarted = true;
   localStorage.setItem("appHasStarted", true);
+  console.log("Epa App loaded")
 }
 ///////////////////////////////////////////////////////
 //        Count the double in the datasets           //
