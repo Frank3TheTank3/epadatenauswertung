@@ -68,6 +68,7 @@ let appHasStarted = false;
 
 function checkLocalStorage(){
 
+  //Slightly messy :P sorry for that - TO DO optimization
 ///////////////////////////////////////////////////////
 //             Enteries and full data set            //
 ///////////////////////////////////////////////////////
@@ -152,8 +153,6 @@ function checkLocalStorage(){
   //Set a smallest value for small sizes to hide in graph 4
   if(localStorage.getItem('graph4smallvalue')) {
     graph4SmallValue = localStorage.getItem('graph4smallvalue');
-    console.log(graph4SmallValue)
-   
     localStorage.removeItem('graph4hidesmalls');
     if(graph4SmallValue >= 101)
     {
@@ -314,13 +313,14 @@ jQuery(document).ready(function() {
         if(appHasStarted === false)
         {
         sendData(epaDataRecords)
-       
+        console.log("Compiled .json with" + epaDataRecords.length + " entries has been created in the server root folder")
         }
 
         //Create downloadbutton
         var downloadBtn = document.getElementById("downloadFile");
         downloadBtn.addEventListener("click", function() {
           downloadObjectAsJson(epaDataRecords)
+          console.log("Downloading the new .json epa data records with " + epaDataRecords.length + " data entries")
         }, false);
 
         //Log epaDataRecords to display data set
@@ -401,7 +401,7 @@ function countDataSet(epaDataRecords)
   }
   appHasStarted = true;
   localStorage.setItem("appHasStarted", true);
-  console.log("Epa App loaded")
+  console.log("The Epa Data Analysis App has loaded")
 }
 ///////////////////////////////////////////////////////
 //        Count the double in the datasets           //
